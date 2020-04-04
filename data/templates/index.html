@@ -2,8 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Jobs</title>
+    <title>Main</title>
     <style>
+        a:link, a:visited{
+               color: #039;
+               display: inline-block;
+               text-decoration: none;
+               text-transform: uppercase;
+               letter-spacing: 1px;
+               margin: 10px 15px;
+               padding: 10px 15px;
+               font-size: 15px;
+               font-weight: bold;
+               font-family: 'Montserrat', sans-serif;
+               transition: 0.4s ease-in-out;
+                }
         table {
                margin: auto;
                font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -25,13 +38,29 @@
                 color: #669;
                 padding: 9px 8px;
                 transition: .3s linear;
+        h2{
+                width: 100%;
+                background-color: red;
+           }
 
     </style>
 </head>
 <body>
+    {% if current_user.is_authenticated %}
+        <h2>{{ current_user.name }}</h2>
+        <a class="navbar-brand" href="/logout" style="margin:0px 0px; padding:0px 0px; font-size: 11px;">Logout</a>
+    {% else %}
+        <p>
+            <a class="btn btn-primary " href="/register">Register</a>
+            <a class="btn btn-success" href="/login">Sign up</a>
+        </p>
+    {% endif %}
     <h1>Миссия Колонизация Марса</h1>
     <h5>И на Марсе будут яблони цвести!</h5>
     <h1 style="text-align: center;">Works log</h1>
+    {% if current_user.is_authenticated %}
+        <a href="jobs" class="btn btn-secondary" style="margin: 10px 7%;">Add job</a>
+    {% endif %}
     <table>
         <tr><th>Title of activity</th><th>Team leader</th><th>Duration</th><th>List of collaborators</th><th>Is inished</th></tr>
         {% for jobs in jobs %}
